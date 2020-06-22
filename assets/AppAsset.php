@@ -35,6 +35,7 @@ class AppAsset extends AssetBundle
         'theme/css/style.css',
         'theme/css/responsive.css',
         'theme/css/skin.css',
+        'css/dropzone.min.css',
     ];
     public $js = [
         'theme/js/jquery.min.js',
@@ -56,11 +57,11 @@ class AppAsset extends AssetBundle
         'theme/js/waypoints.min.js',
         'theme/js/jquery.counterup.min.js',
         'theme/js/particles.min.js',
-        'theme/js/gmap.min.js',
         'theme/js/main.js',
+        'js/dropzone.min.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',
-        'yii\bootstrap4\BootstrapAsset',
+        //'yii\bootstrap4\BootstrapAsset',
     ];
 }

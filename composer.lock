@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3ec0a91a00230d065901ef561902fcd3",
+    "content-hash": "f43d518e1be785fbf8dcaa123594c44b",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -340,6 +340,49 @@
             "license": [
                 "MIT"
             ]
+        },
+        {
+            "name": "richardfan1126/yii2-js-register",
+            "version": "v0.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/richardfan1126/yii2-js-register.git",
+                "reference": "e6a49b1523942c0a861bfa9f5cf7371e3bfd94f9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/richardfan1126/yii2-js-register/zipball/e6a49b1523942c0a861bfa9f5cf7371e3bfd94f9",
+                "reference": "e6a49b1523942c0a861bfa9f5cf7371e3bfd94f9",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "richardfan\\widget\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Richard Fan",
+                    "email": "richardfan1126@gmail.com",
+                    "homepage": "https://fancy-digital.com"
+                }
+            ],
+            "description": "Yii2 widget to register JS into view",
+            "keywords": [
+                "extension",
+                "javascript",
+                "widget",
+                "yii2"
+            ],
+            "time": "2016-06-29T17:28:49+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",

@@ -1,6 +1,16 @@
 <?php
 
 /* @var $this yii\web\View */
+/* @var $banner app\models\HomeBanner */
+/* @var $sobre app\models\Pages */
+/* @var $blog_page app\models\Pages */
+/* @var $posts app\models\Post */
+/* @var $numeros_page app\models\Pages */
+/* @var $numeros app\models\Numeros */
+/* @var $depoimentos_page app\models\Pages */
+/* @var $depoimentos app\models\Depoimentos */
+/* @var $clientes_page app\models\Pages */
+/* @var $clientes app\models\NossosClientes */
 
 use yii\helpers\Url;
 
@@ -14,19 +24,20 @@ $this->title = 'RR Tech';
                 <div class="col-lg-6 col-md-6 col-12">
                     <!-- Hero Text -->
                     <div class="hero-text" style="text-transform: uppercase">
-                        <h1 style="text-transform: uppercase" >R&R Tecnologia</h1>
+                        <h1 style="text-transform: uppercase" ><?= $banner->title ?></h1>
                         <h4 style="text-transform: uppercase"  class="cd-headline clip is-full-width">
-                            A nº 1 em manutenção, suporte <br> e venda de
+                            <?= $banner->subtitle ?>
+                            <?php if($banner->typpings && gettype(unserialize($banner->typpings)) === 'array') :?>
                             <span class="cd-words-wrapper">
-                                <b class="is-visible">Relógio de Ponto</b>
-                                <b>Catracas de Acesso</b>
-                                <b>Controles de Acesso</b>
-                                <b>Bastão de Ronda</b>
+                                <?php
+                                    $index = 1;
+                                    foreach (unserialize($banner->typpings) as $item) { ?>
+                                        <b class="<?= $index === 1 ? 'is-visible' : ''?>"><?= $item ?></b>
+                                <?php $index++; } ?>
                             </span>
+                            <?php endif; ?>
                         </h4>
-                        <p>
-                            somos reconhecidos por oferecer produtos de qualidade, alta tecnologia e excelente relação custo benefício, atendendo as mais variadas finalidades em diversos empreendimentos de sucesso.
-                        </p>
+                        <p><?= $banner->text ?></p>
                         <div class="button">
                             <a href="<?= Url::to('/produtos') ?>" class="elena-btn bordered radius">Produtos</a>
                             <a href="<?= Url::to('/contato') ?>" class="elena-btn bordered primary radius">Fale Conosco</a>
@@ -69,9 +80,9 @@ $this->title = 'RR Tech';
                                 <div class="single-feature">
                                     <div class="feature-head">
                                         <span>1</span>
-                                        <i class="fa fa-html5"></i>
+                                        <i class="fa fa-handshake-o"></i>
                                     </div>
-                                    <h2>Venda & Consultoria</h2>
+                                    <h2>Venda</h2>
                                     <p>A R & R Tecnologia comercializa os melhores sistemas de controle de acesso e pontos eletrônicos.</p>
                                 </div>
                                 <!-- End Single Feature -->
@@ -93,7 +104,7 @@ $this->title = 'RR Tech';
                                 <div class="single-feature">
                                     <div class="feature-head">
                                         <span>3</span>
-                                        <i class="fa fa-bitbucket"></i>
+                                        <i class="fa fa-bolt"></i>
                                     </div>
                                     <h2>Manutenção</h2>
                                     <p>Trabalhamos com manutenção preventiva evitando assim gastos maiores para o cliente.</p>
@@ -114,58 +125,32 @@ $this->title = 'RR Tech';
             <div class="row">
                 <div class="col-lg-8 col-md-8 offset-md-2 col-12">
                     <div class="section-title">
-                        <span class="title-bg">O que fazemos</span>
-                        <h1>Serviços</h1>
-                        <p>A R&R é referência do Centro Oeste em soluções para Controle de Ponto, Controle de Acesso, Controle de Rondas e Serviços de Manutenção e Assistência Técnica de grandes, médias e pequenas<p>
+                        <span class="title-bg"><?= $servico_page->backtitle ?></span>
+                        <h1><?= $servico_page->title ?></h1>
+                        <p><?= $servico_page->resume ?><p>
                     </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-12">
-                    <!-- Single Service -->
-                    <div class="single-service">
-                        <div class="service-head">
-                            <img src="<?= Url::to('/theme/images/') ?>service1.jpg" alt="#">
-                            <div class="icon"><i class="fa fa-handshake-o"></i></div>
-                        </div>
-                        <div class="service-bottom">
-                            <h2><a href="service-single.html">Consultoria</a></h2>
-                            <p>Will know that there are millions of people out there. Every day besides so mandople joining this community manyea others</p>
-                            <a href="#" class="elena-btn">Saiba Mais<i class="fa fa-long-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <!--/ End Single Service -->
-                </div>
-                <div class="col-lg-4 col-md-4 col-12">
-                    <!-- Single Service -->
-                    <div class="single-service">
-                        <div class="service-head">
-                            <img src="<?= Url::to('/theme/images/') ?>service2.jpg" alt="#">
-                            <div class="icon"><i class="fa fa-lightbulb-o"></i></div>
-                        </div>
-                        <div class="service-bottom">
-                            <h2><a href="service-single.html">Implantação</a></h2>
-                            <p>Will know that there are millions of people out there. Every day besides so mandople joining this community manyea others</p>
-                            <a href="#" class="elena-btn">Saiba Mais<i class="fa fa-long-arrow-right"></i></a>
+                <?php foreach ($servicos as $servico) { ?>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="single-blog">
+                            <div class="blog-head">
+                                <img src="<?= Url::to('@web/') . $servico->image ?>" alt="#">
+                            </div>
+                            <div class="blog-bottom">
+                                <h4><a href="<?= Url::to(['blog/view', 'id' => $servico->id]) ?>">
+                                        <?= $servico->title ?>
+                                    </a></h4>
+                                <div class="blog-meta">
+                                    <span><i class="fa fa-calendar"></i>25 November, 2019</span>
+                                </div>
+                                <p><?= substr($servico->body, 0, 100) . ' [...]' ?></p>
+                                <a href="<?= Url::to(['blog/view', 'id' => $servico->id]) ?>" class="elena-btn">Continuar lendo<i class="fa fa-angle-right"></i></a>
+                            </div>
                         </div>
                     </div>
-                    <!--/ End Single Service -->
-                </div>
-                <div class="col-lg-4 col-md-4 col-12">
-                    <!-- Single Service -->
-                    <div class="single-service">
-                        <div class="service-head">
-                            <img src="<?= Url::to('/theme/images/') ?>service3.jpg" alt="#">
-                            <div class="icon"><i class="fa fa-briefcase"></i></div>
-                        </div>
-                        <div class="service-bottom">
-                            <h2><a href="service-single.html">Suporte & Manutenção</a></h2>
-                            <p>Will know that there are millions of people out there. Every day besides so mandople joining this community manyea others</p>
-                            <a href="#" class="elena-btn">Saiba Mais<i class="fa fa-long-arrow-right"></i></a>
-                        </div>
-                    </div>
-                    <!--/ End Single Service -->
-                </div>
+                <?php } ?>
             </div>
             <div class="row">
                 <div class="col-12">
@@ -183,20 +168,15 @@ $this->title = 'RR Tech';
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 col-md-6 col-12">
-                    <!-- Call Text -->
                     <div class="call-text">
-                        <h2><strong>Nós somos R&R Tecnologia</strong></h2>
-                        <h2>Missão</h2>
-                        <p>Nam eleifend, turpis ac laoreet tincidunt, arcu purus ultricies nisl, quis molestie nibh lacus et dui. Nunc efficitur turpis lorem, bibendum dictum libero ornarea. Probinan ultricies nisl, quis molestie</p>
-                        <br>
-                        <h2>Valores</h2>
-                        <p>Nam eleifend, turpis ac laoreet tincidunt, arcu purus ultricies nisl, quis molestie nibh lacus et dui. Nunc efficitur turpis lorem, bibendum dictum libero ornarea. Probinan ultricies nisl, quis molestie</p>
+                        <h2><strong><?= $sobre->title ?></strong></h2>
+                        <p class="text-uppercase"><strong><?= $sobre->resume ?></strong></p> <br>
+                        <p><strong><?= $sobre->body ?></strong></p>
                     </div>
                 </div>
                 <div class="col-lg-6 col-md-6 col-12">
-                    <!-- Video Popup -->
                     <div class="call-video">
-                        <img src="<?= Url::to('/theme/images/') ?>access-control.jpg" alt="#">
+                        <img src="<?= Url::to('@web/') . $sobre->image ?>" alt="#">
                     </div>
                 </div>
             </div>
@@ -207,59 +187,35 @@ $this->title = 'RR Tech';
     <!-- Start Count Down -->
     <section class="countdown section">
         <div class="container">
+
+            <div class="row">
+                <div class="col-lg-8 col-md-8 offset-md-2 col-12">
+                    <div class="section-title">
+                        <span class="title-bg"><?= $numeros_page->backtitle ?></span>
+                        <h1><?= $numeros_page->title ?></h1>
+                        <p><?= $numeros_page->resume ?><p>
+                    </div>
+                </div>
+            </div>
             <div class="row">
                 <div class="col-lg-7 col-12">
-                    <div class="count-title">
-                        <h2><span>Nossos números</span> ao longo dos anos</h2>
-                        <p>Com responsabilidade e eficiência, a R&R tornou-se uma das mais importantes revendas TopData do Brasil.</p>
-                    </div>
                     <div class="row">
-                        <div class="col-lg-6 col-md-6 col-xs-12">
-                            <!-- Single Count -->
-                            <div class="single-count">
-                                <i class="fa fa-briefcase"></i>
-                                <b><span class="count">3210</span>K</b>
-                                <h4>consultorias</h4>
-                                <p>We have done 3000+ project with high quality support.</p>
+                        <?php foreach ($numeros as $numero) { ?>
+                            <div class="col-lg-6 col-md-6 col-xs-12">
+                                <div class="single-count">
+                                    <i class="fa fa-briefcase"></i>
+                                    <b><span class="count"><?= $numero->numeros ?></span><?= $numero->strong ?></b>
+                                    <h4><?= $numero->title ?></h4>
+                                    <p><?= $numero->resume ?></p>
+                                </div>
                             </div>
-                            <!--/ End Single Count -->
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-xs-12">
-                            <!-- Single Count -->
-                            <div class="single-count">
-                                <i class="fa fa-code"></i>
-                                <b><span class="count">5030</span>K</b>
-                                <h4>Produtos Vendidos</h4>
-                                <p>5k+ Hand writting Code type's by our creative developers.</p>
-                            </div>
-                            <!--/ End Single Count -->
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-xs-12">
-                            <!-- Single Count -->
-                            <div class="single-count">
-                                <i class="fa fa-handshake-o"></i>
-                                <b><span class="count">2034</span>+</b>
-                                <h4>Clientes Satisfeitos</h4>
-                                <p>With our 4 years journy, we achived 2k+ happy clients.</p>
-                            </div>
-                            <!--/ End Single Count -->
-                        </div>
-                        <div class="col-lg-6 col-md-6 col-xs-12">
-                            <!-- Single Count -->
-                            <div class="single-count">
-                                <i class="fa fa-support"></i>
-                                <b><span class="count">12340</span>+</b>
-                                <h4>Atendimentos de Suporte</h4>
-                                <p>We received 12k+ unique tickets and fix all issue fast.</p>
-                            </div>
-                            <!--/ End Single Count -->
-                        </div>
+                        <?php } ?>
                     </div>
                 </div>
                 <div class="col-lg-5 col-md-5 col-12">
                     <!-- Count Image -->
                     <div class="count-image">
-                        <img src="<?= Url::to('/theme/images/') ?>count-image.jpg" alt="#">
+                        <img src="<?= Url::to('@web/') . $numeros_page->image; ?>" alt="#">
                     </div>
                 </div>
             </div>
@@ -268,36 +224,34 @@ $this->title = 'RR Tech';
     <!--/ End Count Down -->
 
     <!-- Testimonials -->
-    <section class="testimonials section">
+    <section id="depoimentos" class="testimonials section">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
                     <div class="section-title">
-                        <span class="title-bg">Sucesso</span>
-                        <h1>Casos de sucesso!</h1>
-                        <p>Nós temos inúmeros clientes satisfeitos porque fazemos sempre o melhor!</p><p>
-                        </p></div>
+                        <span class="title-bg"><?= $depoimentos_page->backtitle ?></span>
+                        <h1><?= $depoimentos_page->title ?></h1>
+                        <p><?= $depoimentos_page->resume ?></p>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-12">
-                    <div class="test-image" style="background-image:url('<?= Url::to('/theme/images/') ?>bg.jpg')">
+                    <div class="test-image" style="background-image:url('<?= Url::to('@web/') . $depoimentos_page->image ?>')">
                         <div class="row">
                             <div class="col-lg-6 offset-lg-6 testimonial-carousel">
-                                <!-- Single Testimonial -->
+
                                 <div class="single-testimonial">
                                     <i class="fa fa-quote-right"></i>
                                     <div class="testimonial-content">
                                         <p>Muito satisfeito com a catraca digital da TopData, um produto de ótima qualidade, que trouxe eficiência e segurança para minha empresa.</p>
                                     </div>
-                                    <!-- Client Info -->
                                     <div class="client-info">
                                         <img src="<?= Url::to('/theme/images/') ?>client-1.jpg" class="img-circle" alt="">
                                         <h6>Cristiane Rodovalho<span>CEO Presidente - Dream Park</span></h6>
                                     </div>
                                 </div>
-                                <!--/ End Single Testimonial -->
-                                <!-- Single Testimonial -->
+
                                 <div class="single-testimonial">
                                     <i class="fa fa-quote-right"></i>
                                     <div class="testimonial-content">
@@ -309,33 +263,7 @@ $this->title = 'RR Tech';
                                         <h6>Carlos Crivela<span>Gerente de Setor - Brasil Vida</span></h6>
                                     </div>
                                 </div>
-                                <!--/ End Single Testimonial -->
-                                <!-- Single Testimonial -->
-                                <div class="single-testimonial">
-                                    <i class="fa fa-quote-right"></i>
-                                    <div class="testimonial-content">
-                                        <p>Muito satisfeito com a catraca digital da TopData, um produto de ótima qualidade, que trouxe eficiência e segurança para minha empresa.</p>
-                                    </div>
-                                    <!-- Client Info -->
-                                    <div class="client-info">
-                                        <img src="<?= Url::to('/theme/images/') ?>client-3.jpg" class="img-circle" alt="">
-                                        <h6>Monalia Carvalho<span>Chefe de Segurança - Passeio das Águas</span></h6>
-                                    </div>
-                                </div>
-                                <!--/ End Single Testimonial -->
-                                <!-- Single Testimonial -->
-                                <div class="single-testimonial">
-                                    <i class="fa fa-quote-right"></i>
-                                    <div class="testimonial-content">
-                                        <p>Muito satisfeito com a catraca digital da TopData, um produto de ótima qualidade, que trouxe eficiência e segurança para minha empresa.</p>
-                                    </div>
-                                    <!-- Client Info -->
-                                    <div class="client-info">
-                                        <img src="<?= Url::to('/theme/images/') ?>client-4.jpg" class="img-circle" alt="">
-                                        <h6>Cristiano Araújo<span>Diretor Sênior - Hospital Araújo Jorge</span></h6>
-                                    </div>
-                                </div>
-                                <!--/ End Single Testimonial -->
+
                             </div>
                         </div>
                     </div>
@@ -351,76 +279,32 @@ $this->title = 'RR Tech';
             <div class="row">
                 <div class="col-lg-8 offset-lg-2 col-md-8 offset-md-2 col-12">
                     <div class="section-title">
-                        <span class="title-bg">Blog</span>
-                        <h1>Blog</h1>
-                        <p>Fique por dentro das tendências e novidades no mundo das tecnologias de controle de acesso</p><p>
-                        </p></div>
+                        <span class="title-bg"><?= $blog_page->backtitle ?></span>
+                        <h1><?= $blog_page->name ?></h1>
+                        <p><?= $blog_page->resume ?></p>
+                    </div>
                 </div>
             </div>
             <div class="row">
-                <div class="col-lg-4 col-md-4 col-12">
-                    <!-- Single Blog -->
-                    <div class="single-blog">
-                        <!-- Blog Head -->
-                        <div class="blog-head">
-                            <div class="date"><a href="#">Business</a></div>
-                            <img src="<?= Url::to('/theme/images/') ?>blog-1.jpg" alt="#">
-                        </div>
-                        <!-- Blog Bottom -->
-                        <div class="blog-bottom">
-                            <h4><a href="blog-single.html">Have there been a single good startup founded in welzo</a></h4>
-                            <div class="blog-meta">
-                                <span><i class="fa fa-users"></i><a href="#">Elena Group</a></span>
-                                <span><i class="fa fa-calendar"></i>25 November, 2019</span>
+                <?php foreach ($posts as $post) { ?>
+                    <div class="col-lg-4 col-md-4 col-12">
+                        <div class="single-blog">
+                            <div class="blog-head">
+                                <img src="<?= Url::to('@web/') . $post->image ?>" alt="#">
                             </div>
-                            <p>All users on MySpace will know that there are millions of people out there. Every day besides so many people joining this outline</p>
-                            <a href="#" class="elena-btn">Continuar lendo<i class="fa fa-angle-right"></i></a>
+                            <div class="blog-bottom">
+                                <h4><a href="<?= Url::to(['blog/view', 'id' => $post->id]) ?>">
+                                        <?= $post->title ?>
+                                    </a></h4>
+                                <div class="blog-meta">
+                                    <span><i class="fa fa-calendar"></i>25 November, 2019</span>
+                                </div>
+                                <p><?= substr($post->body, 0, 100) . ' [...]' ?></p>
+                                <a href="<?= Url::to(['blog/view', 'id' => $post->id]) ?>" class="elena-btn">Continuar lendo<i class="fa fa-angle-right"></i></a>
+                            </div>
                         </div>
                     </div>
-                    <!-- End Single Blog -->
-                </div>
-                <div class="col-lg-4 col-md-4 col-12">
-                    <!-- Single Blog -->
-                    <div class="single-blog">
-                        <!-- Blog Head -->
-                        <div class="blog-head">
-                            <div class="date"><a href="#">Animation</a></div>
-                            <img src="<?= Url::to('/theme/images/') ?>blog-2.jpg" alt="#">
-                        </div>
-                        <!-- Blog Bottom -->
-                        <div class="blog-bottom">
-                            <h4><a href="blog-single.html">We'll provide you best valuable product with gurantee</a></h4>
-                            <div class="blog-meta">
-                                <span><i class="fa fa-users"></i><a href="#">Elena Group</a></span>
-                                <span><i class="fa fa-calendar"></i>05 October, 2019</span>
-                            </div>
-                            <p>All users on MySpace will know that there are millions of people out there. Every day besides so many people joining this outline</p>
-                            <a href="#" class="elena-btn">Continuar lendo<i class="fa fa-angle-right"></i></a>
-                        </div>
-                    </div>
-                    <!-- End Single Blog -->
-                </div>
-                <div class="col-lg-4 col-md-4 col-12">
-                    <!-- Single Blog -->
-                    <div class="single-blog">
-                        <!-- Blog Head -->
-                        <div class="blog-head">
-                            <div class="date"><a href="#">Creative</a></div>
-                            <img src="<?= Url::to('/theme/images/') ?>blog-3.jpg" alt="#">
-                        </div>
-                        <!-- Blog Bottom -->
-                        <div class="blog-bottom">
-                            <h4><a href="blog-single.html">Amazing Design With Creative Features available Here</a></h4>
-                            <div class="blog-meta">
-                                <span><i class="fa fa-users"></i><a href="#">Elena Group</a></span>
-                                <span><i class="fa fa-calendar"></i>20 September, 2019</span>
-                            </div>
-                            <p>All users on MySpace will know that there are millions of people out there. Every day besides so many people joining this outline</p>
-                            <a href="#" class="elena-btn">Continuar lendo<i class="fa fa-angle-right"></i></a>
-                        </div>
-                    </div>
-                    <!-- End Single Blog -->
-                </div>
+                <?php } ?>
             </div>
             <div class="row">
                 <div class="col-12">
@@ -434,60 +318,27 @@ $this->title = 'RR Tech';
     <!--/ End Blogs Area -->
 
     <!-- Start Clients -->
-    <section class="clients overlay" data-stellar-background-ratio="0.5" style="background-image:url('<?= Url::to('/theme/images/') ?>bg2.jpeg')">
+    <section id="clientes" class="clients overlay" data-stellar-background-ratio="0.5" style="background-image:url('<?= Url::to('/theme/images/') ?>bg2.jpeg')">
         <div class="container">
             <div class="row">
                 <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
                     <div class="section-title">
-                        <span class="title-bg">Clientes</span>
-                        <h1>Nossos Clientes</h1>
-                        <p>Nosso compromisso é de entregar, aos nossos clientes, um produto de ótima qualidade, agregando serviços eficientes para garantir os resultados esperados.</p><p>
-                        </p></div>
+                        <span class="title-bg"><?= $clientes_page->backtitle ?></span>
+                        <h1><?= $clientes_page->title ?></h1>
+                        <p><?= $clientes_page->resume ?></p>
+                    </div>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-12">
                     <div class="clients-slider">
-                        <!-- Single Client -->
-                        <div class="single-client">
-                            <a href="#" target="_blank"><img src="<?= Url::to('/theme/images/') ?>partner-1.png" alt="#"></a>
-                        </div>
-                        <!--/ End Single Client -->
-                        <!-- Single Client -->
-                        <div class="single-client">
-                            <a href="#" target="_blank"><img src="<?= Url::to('/theme/images/') ?>partner-2.png" alt="#"></a>
-                        </div>
-                        <!--/ End Single Client -->
-                        <!-- Single Client -->
-                        <div class="single-client">
-                            <a href="#" target="_blank"><img src="<?= Url::to('/theme/images/') ?>partner-3.png" alt="#"></a>
-                        </div>
-                        <!--/ End Single Client -->
-                        <!-- Single Client -->
-                        <div class="single-client">
-                            <a href="#" target="_blank"><img src="<?= Url::to('/theme/images/') ?>partner-4.png" alt="#"></a>
-                        </div>
-                        <!--/ End Single Client -->
-                        <!-- Single Client -->
-                        <div class="single-client">
-                            <a href="#" target="_blank"><img src="<?= Url::to('/theme/images/') ?>partner-5.png" alt="#"></a>
-                        </div>
-                        <!--/ End Single Client -->
-                        <!-- Single Client -->
-                        <div class="single-client">
-                            <a href="#" target="_blank"><img src="<?= Url::to('/theme/images/') ?>partner-6.png" alt="#"></a>
-                        </div>
-                        <!--/ End Single Client -->
-                        <!-- Single Client -->
-                        <div class="single-client">
-                            <a href="#" target="_blank"><img src="<?= Url::to('/theme/images/') ?>partner-7.png" alt="#"></a>
-                        </div>
-                        <!--/ End Single Client -->
-                        <!-- Single Client -->
-                        <div class="single-client">
-                            <a href="#" target="_blank"><img src="<?= Url::to('/theme/images/') ?>partner-3.png" alt="#"></a>
-                        </div>
-                        <!--/ End Single Client -->
+
+                        <?php foreach ($clientes as $cliente) : ?>
+                            <div class="single-client">
+                                ...<img src="<?= Url::to('@web/') . $cliente->image ?>" alt="#">
+                            </div>
+                        <?php endforeach; ?>
+
                     </div>
                 </div>
             </div>

@@ -27,16 +27,15 @@
                     <div class="single-widget lists">
                         <h2>Useful Links</h2>
                         <ul class="list">
-                            <li><a href="#"><i class="fa fa-long-arrow-right"></i>Sobre nós</a></li>
-                            <li><a href="#"><i class="fa fa-long-arrow-right"></i>Vendas</a></li>
-                            <li><a href="#"><i class="fa fa-long-arrow-right"></i>Cotações</a></li>
-                            <li><a href="#"><i class="fa fa-long-arrow-right"></i>Notícias</a></li>
-                            <li><a href="#"><i class="fa fa-long-arrow-right"></i>Fale Conosco</a></li>
-                            <li><a href="#"><i class="fa fa-long-arrow-right"></i>Nossa Tecnologia</a></li>
-                            <li><a href="#"><i class="fa fa-long-arrow-right"></i>Produtos</a></li>
-                            <li><a href="#"><i class="fa fa-long-arrow-right"></i>Serviços</a></li>
-                            <li><a href="#"><i class="fa fa-long-arrow-right"></i>Suporte</a></li>
-                            <li><a href="#"><i class="fa fa-long-arrow-right"></i>Clientes</a></li>
+                            <li><a href="sobre-nos"><i class="fa fa-long-arrow-right"></i>Sobre nós</a></li>
+                            <li><a href="contato"><i class="fa fa-long-arrow-right"></i>Cotações</a></li>
+                            <li><a href="blog"><i class="fa fa-long-arrow-right"></i>Blog</a></li>
+                            <li><a href="contato"><i class="fa fa-long-arrow-right"></i>Fale Conosco</a></li>
+                            <li><a href="nossa-tecnologia"><i class="fa fa-long-arrow-right"></i>Nossa Tecnologia</a></li>
+                            <li><a href="produtos"><i class="fa fa-long-arrow-right"></i>Produtos</a></li>
+                            <li><a href="servicos"><i class="fa fa-long-arrow-right"></i>Serviços</a></li>
+                            <li><a href="/home#clientes"><i class="fa fa-long-arrow-right"></i>Clientes</a></li>
+                            <li><a href="/home#depoimentos"><i class="fa fa-long-arrow-right"></i>Depoimentos</a></li>
                         </ul>
                     </div>
                     <!--/ End Single Footer -->
